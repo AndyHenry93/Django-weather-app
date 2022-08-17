@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Forecast{% endblock title%}
+
+{% block content %}
+   <form method="POST" action="">
+        <div>
+            {{form}}
+            {% csrf_token %}
+            <input type="submit" value="search">
+        </div>
+   </form>
+   <div>
+    {% if form.city %}
+        <h4><span>Country Code :</span> {{data.country_code}}</h4>
+        <h4><span>Coordinates [X,Y] :</span> {{data.coordinate}}</h4>
+        <h4><span>Temperature:</span> {{data.temp}}</h4>
+        <h4><span>Pressure :</span> {{data.pressure}} </h4>
+        <h4><span>Humidity : </span> {{data.humidity}}</h4>
+        <h4><span>Forecast : </span> {{data.main}}</h4>
+        <h4><span>Description : </span> {{data.description}}</h4>
+      {% endif %}
+   </div>
+{% endblock content %}
