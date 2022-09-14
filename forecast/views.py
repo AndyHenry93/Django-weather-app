@@ -9,10 +9,12 @@ def forecast(request):
         form = ForecastForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            city = cd['city']
-            source = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid=b68db3498a4724b624acf40f2b6cb65d&units=imperial').read()
+            zip=cd['zipcode']
+            code=cd['country_code']
+            source = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?zip='+zip+','+code+'&appid=b68db3498a4724b624acf40f2b6cb65d&units=imperial').read()
             list_data = json.loads(source)
             data = {
+                "name": str(list_data['name']),
                 "country_code": str(list_data['sys']['country']),
                 "coordinate": str(list_data['coord']['lon']) +', '+ str(list_data['coord']['lat']),
                 "temp": str(list_data['main']['temp']),
@@ -23,5 +25,5 @@ def forecast(request):
             }
             return render(request,'forecast/forecast.html',{'form':form,'data':data})
     else:
-        city = ForecastForm()
+        form = ForecastForm()
         return render(request,'forecast/forecast.html',{'form':form}) 
