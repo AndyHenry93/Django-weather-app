@@ -1,17 +1,21 @@
 from django.shortcuts import render
+import os
 import json
 import urllib.request
+from dotenv import load_dotenv
+load_dotenv()
 from .forms import ForecastForm
 
 # Create your views here.
 def forecast(request):
+    api = str(os.getenv('api'))
     if request.method == "POST":
         form = ForecastForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             zip=cd['zipcode']
             code=cd['country_code']
-            source = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?zip='+zip+','+code+'&appid=b68db3498a4724b624acf40f2b6cb65d&units=imperial').read()
+            source = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?zip='+zip+','+code+'&appid='+api+'&units=imperial').read()
             list_data = json.loads(source)
             data = {
                 "name": str(list_data['name']),
