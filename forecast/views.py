@@ -13,9 +13,9 @@ def forecast(request):
         form = ForecastForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            zip=cd['zipcode']
+            zip_code=cd['zipcode']
             code=cd['country_code']
-            source = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?zip='+zip+','+code+'&appid='+api+'&units=imperial').read()
+            source = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?zip='+zip_code+','+code+'&appid='+api+'&units=imperial').read()
             list_data = json.loads(source)
             data = {
                 "name": str(list_data['name']),
