@@ -8,7 +8,7 @@ load_dotenv()
 
 # Create your views here.
 def forecast(request):
-    api = str(os.getenv('api'))
+    api = str(os.getenv('API_KEY'))
     if request.method == "POST":
         form = ForecastForm(request.POST)
         if form.is_valid():
