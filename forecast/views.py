@@ -1,11 +1,16 @@
+# first I imported a few packages too work with json data. 
 import os
 import json
 from django.shortcuts import render
-from .forms import ForecastForm
 from urllib.request import urlopen
 from dotenv import load_dotenv
+from .forms import ForecastForm
 load_dotenv()
 
+
+# first I set the api variable with my openweather api key, next if the user submits a post request on the Forecastform 
+# check if that data is valid. if so make a call to the openweather api. next store all all the api infromation to a 
+# data dictionary 
 # Create your views here.
 def forecast(request):
     api = str(os.getenv('API_KEY'))
